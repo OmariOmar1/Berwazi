@@ -2,6 +2,33 @@
   padding: 20px 10% 20px 10%;
 }
 
-.berwazi-form .display-images{
-  margin-bottom: 5px;
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 25px;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close i {
+  color: hsl(0deg 0% 100%);
+    padding: 5px;
+}
+
+.display-images {
+  border: 1px solid #ddd;
+  width: 300px;
+  height: 200px;
 }

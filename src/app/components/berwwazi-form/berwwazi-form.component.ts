@@ -31,4 +31,11 @@ public onShowImage(fileInput: HTMLInputElement){
   }
 }
 
+public removeImage(imageIndex: number) {
+  // Remove the reference to the image from the imagesList array
+  this.imagesList.splice(imageIndex, 1);
+
+  // Update the local storage
+  localStorage.setItem('imagesList', JSON.stringify(this.imagesList));
+}
 }
