@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import {  FileUploader } from 'ng2-file-upload';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @Component({
   selector: 'app-berwwazi-form',
@@ -7,35 +9,20 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./berwwazi-form.component.css']
 })
 export class BerwwaziFormComponent implements OnInit {
-  constructor() { }
+  constructor(public sanitizer:DomSanitizer) { }
 
   public images: string | ArrayBuffer | null =  '';
   public imagesList: string[] = [];
-  ngOnInit() {}
-
-
-
-public onShowImage(fileInput: HTMLInputElement){
-  this.imagesList = [];
-  const images = fileInput.files;
-  if (images) {
-    for (let i = 0; i < images.length; i++) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        if (e.target) {
-          this.imagesList.push(e.target.result as string);
-        }
-      };
-      reader.readAsDataURL(images[i]);
-    }
+  public fileInput: HTMLElement | null = null;
+  public uploader:FileUploader = new FileUploader({url: 'URL'});
+  public filePaths: {[key: string]: string} = {};
+  ngOnInit() {
+    this.uploader.onAfterAddingFile = (fileItem) => {
+      let url = (window.URL) ? window.URL.createObjectURL(fileItem._file) : (window as any).webkitURL.createObjectURL(fileItem._file);
+      const fileName: string = fileItem.file?.name ?? '';
+      this.filePaths[fileName] = url;
   }
-}
 
-public removeImage(imageIndex: number) {
-  // Remove the reference to the image from the imagesList array
-  this.imagesList.splice(imageIndex, 1);
+  }
 
-  // Update the local storage
-  localStorage.setItem('imagesList', JSON.stringify(this.imagesList));
-}
 }

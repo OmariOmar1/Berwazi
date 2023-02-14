@@ -7,43 +7,96 @@
     <label for="mobile-number" class="form-label">Mobile Number</label>
     <input type="text" class="form-control" id="mobile-number">
   </div>
+  <div class="col-md-12">
+    <label for="inputState" class="form-label">Governorates</label>
+    <select id="inputState" class="form-select">
+      <option selected>Choose...</option>
+      <option value="Amman">Amman</option>
+      <option value="Irbid">Irbid</option>
+      <option value="Ajloun">Ajloun</option>
+      <option value="Jerash">Jerash</option>
+      <option value="Al-Balqa">Al-Balqa</option>
+      <option value="Madaba">Madaba</option>
+      <option value="Al-Karak">Al-Karak</option>
+      <option value="Tafilah">Tafilah</option>
+      <option value="Al-Mafraq">Al-Mafraq</option>
+      <option value="Zarqa">Zarqa</option>
+      <option value="Aqaba">Aqaba</option>
+      <option value="Ma'an">Ma'an</option>
+    </select>
+  </div>
   <div class="col-12">
     <label for="inputAddress" class="form-label">Address</label>
     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
   </div>
+<div class="col-12">
+  <label>How many canvases would you like to order?</label>
+  <select id="inputState" class="form-select">
+    <option selected>Choose...</option>
+    <option value="Amman">1</option>
+    <option value="Amman">3</option>
+    <option value="Amman">6</option>
+  </select>
+  </div>
   <div class="col-12 upload-img-container">
     <div class="mb-5">
       <label for="Image" class="form-label">Upload images for Printing</label>
-      <input class="form-control" type="file" id="formFile" #fileInput (change)="onShowImage(fileInput)" multiple>
+      <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple  />
+
+<table class="table">
+  <thead>
+  <tr>
+      <th width="50%">Name</th>
+      <th>Size</th>
+      <th>Progress</th>
+      <th>Status</th>
+      <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of uploader.queue">
+      <td><strong>{{ item?.file?.name }}</strong></td>
+
+      <td class="text-center">
+          <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+          <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+          <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+      </td>
+      <td>
+        <div class="image-container">
+          <span class="close" (click)="item.remove()">
+            <i class="fa fa-times"></i>
+          </span>
+          <ng-container *ngIf="item.file">
+            <ng-container *ngIf="item.file.name">
+              <img id="frame" [src]="sanitizer.bypassSecurityTrustUrl(filePaths[item.file.name])" class="display-images img-fluid" width="300" height="200"/>
+            </ng-container>
+        </ng-container>
+        </div>
+      </td>
+      <td nowrap>
+          <button type="button" class="btn btn-success btn-xs"
+                  (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+              <span class="glyphicon glyphicon-upload"></span> Upload
+          </button>
+          <button type="button" class="btn btn-warning btn-xs"
+                  (click)="item.cancel()" [disabled]="!item.isUploading">
+              <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+          </button>
+          <button type="button" class="btn btn-danger btn-xs"
+                  (click)="item.remove()">
+              <span class="glyphicon glyphicon-trash"></span> Remove
+          </button>
+      </td>
+  </tr>
+  </tbody>
+</table>
   </div>
   <!-- todo: add this to a seprate component -->
-  <ng-container *ngFor="let image of imagesList;let indexOfImage=index;">
-    <div class="image-container">
-      <span class="close" (click)="removeImage(indexOfImage)">
-        <i class="fa fa-times"></i>
-      </span>
-    <img id="frame" src="{{image}}" class="display-images img-fluid" width="300" height="200"/>
-  </div>
-  </ng-container>
+
+</div>
+<div class="col-12">
+  <button type="submit" class="btn btn-primary">Next</button>
 </div>
 
-  <div class="col-md-12">
-    <label for="inputState" class="form-label">State</label>
-    <select id="inputState" class="form-select">
-      <option selected>Choose...</option>
-      <option>...</option>
-    </select>
-  </div>
-
-  <div class="col-12">
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" id="gridCheck">
-      <label class="form-check-label" for="gridCheck">
-        Check me out
-      </label>
-    </div>
-  </div>
-  <div class="col-12">
-    <button type="submit" class="btn btn-primary">Next</button>
-  </div>
 </form>
