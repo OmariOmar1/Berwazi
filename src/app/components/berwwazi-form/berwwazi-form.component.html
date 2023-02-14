@@ -43,27 +43,9 @@
       <label for="Image" class="form-label">Upload images for Printing</label>
       <input type="file" class="form-control" ng2FileSelect [uploader]="uploader" multiple  />
 
-<table class="table">
-  <thead>
-  <tr>
-      <th width="50%">Name</th>
-      <th>Size</th>
-      <th>Progress</th>
-      <th>Status</th>
-      <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let item of uploader.queue">
-      <td><strong>{{ item?.file?.name }}</strong></td>
 
-      <td class="text-center">
-          <span *ngIf="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
-          <span *ngIf="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
-          <span *ngIf="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
-      </td>
-      <td>
-        <div class="image-container">
+  <ng-container *ngFor="let item of uploader.queue">
+    <div class="image-container">
           <span class="close" (click)="item.remove()">
             <i class="fa fa-times"></i>
           </span>
@@ -73,24 +55,7 @@
             </ng-container>
         </ng-container>
         </div>
-      </td>
-      <td nowrap>
-          <button type="button" class="btn btn-success btn-xs"
-                  (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
-              <span class="glyphicon glyphicon-upload"></span> Upload
-          </button>
-          <button type="button" class="btn btn-warning btn-xs"
-                  (click)="item.cancel()" [disabled]="!item.isUploading">
-              <span class="glyphicon glyphicon-ban-circle"></span> Cancel
-          </button>
-          <button type="button" class="btn btn-danger btn-xs"
-                  (click)="item.remove()">
-              <span class="glyphicon glyphicon-trash"></span> Remove
-          </button>
-      </td>
-  </tr>
-  </tbody>
-</table>
+      </ng-container>
   </div>
   <!-- todo: add this to a seprate component -->
 
