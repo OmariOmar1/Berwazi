@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FileUploadService {
-  private baseUrl = 'http://localhost:4200';
+  private baseUrl = 'http://www.berwazi.jo/form/submit';
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,8 @@ export class FileUploadService {
     return this.http.request(req);
   }
 
-  getFiles(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/files`);
+  submitForm(formValues: any): Observable<any> {
+    console.log(JSON.stringify(formValues));
+    return this.http.post<any>(this.baseUrl, formValues);
   }
 }

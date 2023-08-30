@@ -2,12 +2,14 @@
   padding: 20px 10% 20px 10%;
 }
 
-.image-container {
+.berwazi-form .image-container {
   position: relative;
   display: inline-block;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.close {
+.berwazi-form .close {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -22,12 +24,12 @@
   justify-content: center;
 }
 
-.close i {
-  color: hsl(0deg 0% 100%);
+.berwazi-form .close i {
+  color:  #9d1d90;
     padding: 5px;
 }
 
-.display-images {
+.berwazi-form .display-images {
   border: 1px solid #ddd;
   width: 300px;
   height: 200px;

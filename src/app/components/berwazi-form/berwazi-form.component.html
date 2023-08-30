@@ -1,0 +1,63 @@
+<form class="berwazi-form row g-3" #ngFormRef="ngForm" name="berwazi" (submit)="onSubmit()">
+  <div class="col-md-6">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" class="form-control" id="name" [(ngModel)]="formData.name" name="name">
+  </div>
+  <div class="col-md-6">
+    <label for="mobile-number" class="form-label">Mobile Number</label>
+    <input type="text" class="form-control" id="mobile-number" [(ngModel)]="formData.mobileNumber" name="mobileNumber">
+  </div>
+  <div class="col-md-12">
+    <label for="Governorates" class="form-label">Governorates</label>
+    <select id="Governorates" class="form-select" [(ngModel)]="formData.governorate" name="governorate">
+      <option selected>Choose...</option>
+      <option value="Amman">Amman</option>
+      <option value="Irbid">Irbid</option>
+      <option value="Ajloun">Ajloun</option>
+      <option value="Jerash">Jerash</option>
+      <option value="Al-Balqa">Al-Balqa</option>
+      <option value="Madaba">Madaba</option>
+      <option value="Al-Karak">Al-Karak</option>
+      <option value="Tafilah">Tafilah</option>
+      <option value="Al-Mafraq">Al-Mafraq</option>
+      <option value="Zarqa">Zarqa</option>
+      <option value="Aqaba">Aqaba</option>
+      <option value="Ma'an">Ma'an</option>
+    </select>
+  </div>
+  <div class="col-12">
+    <label for="inputAddress" class="form-label">Address</label>
+    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" [(ngModel)]="formData.address" name="address">
+  </div>
+  <div class="col-12">
+    <label>How many canvases would you like to order?</label>
+    <select id="inputState" class="form-select" [(ngModel)]="formData.numberOfCanvases" name="numberOfCanvases">
+      <option selected>Choose...</option>
+      <option value="1">1</option>
+      <option value="3">3</option>
+      <option value="6">6</option>
+    </select>
+  </div>
+
+  <div class="col-12 upload-img-container">
+    <div class="mb-5">
+      <label class="form-label">Upload images for Printing</label>
+      <input [uploader]="uploader" accept="image/*" class="form-control" multiple ng2FileSelect type="file"/>
+      <ng-container *ngFor="let item of uploader.queue">
+        <div class="image-container">
+          <span class="close" (click)="item.remove()">
+            <i class="fa fa-times"></i>
+          </span>
+          <ng-container *ngIf="item.file">
+            <ng-container *ngIf="item.file.name">
+              <img id="frame" [src]="sanitizer.bypassSecurityTrustUrl(filePaths[item.file.name])" class="display-images img-fluid" width="300" height="200"/>
+            </ng-container>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div><!-- todo: add this to a seprate component -->
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Next</button>
+  </div>
+</form>
